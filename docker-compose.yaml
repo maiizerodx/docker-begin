@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo'
+    volumes: 
+      - mongo-data:/data/db
+    # environment: 
+    #   MONGO_INITDB_ROOT_USERNAME: root
+    #   MONGO_INITDB_ROOT_PASSWORD: randd2024
+      # - MONGO_INITDB_ROOT_USERNAME=root
+    env_file: 
+      - ./env/mongo.env
+  nextjs:
+    build: ./nextjs
+    ports:
+      - '3000:3000'
+    env_file: 
+      - ./env/nextjs.env
+    stdin_open: true
+    tty: true
+    depends_on: 
+      - mongodb
+volumes: 
+  mongo-data:
