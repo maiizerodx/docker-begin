@@ -1,0 +1,11 @@
+cd utility
+docker run --rm node:13
+docker build -t node-util .
+
+image ไม่มี entrypoint
+docker run --rm -it -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util npm init
+docker run --rm -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util npm install
+
+image มี entrypoint เปน npm
+docker run --rm -it -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util init
+docker run --rm -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util install
