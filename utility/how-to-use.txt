@@ -9,3 +9,11 @@ docker run --rm -v "/Users/pom/Work/docker template/docker-begin/utility":/app n
 image มี entrypoint เปน npm
 docker run --rm -it -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util init
 docker run --rm -v "/Users/pom/Work/docker template/docker-begin/utility":/app node-util install
+
+สำหรับ compose
+ไม่มี entrypoint
+docker-compose run --rm node-util npm init
+
+
+มี entrypoint
+docker-compose run --rm node-util init
