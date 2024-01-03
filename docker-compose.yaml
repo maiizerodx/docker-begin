@@ -18,6 +18,9 @@ services:
       - ./env/nextjs.env
     stdin_open: true
     tty: true
+    command: >
+      sh -c "npm run build &&
+             npm start"
     depends_on: 
       - mongodb
 volumes: 
