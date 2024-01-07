@@ -1,0 +1,69 @@
+build from dockerfile
+
+--  build image
+cd nextjs
+docker build -t pomdockercpe/docker-example-1:example .
+docker push pomdockercpe/docker-example-1:example   หรือจะใช้ GUI ก็ได้
+
+
+--  run container  ** เริ่มทำกันตรงนี้
+docker pull pomdockercpe/docker-example-1:example
+docker image ls
+docker run --name my-first-pull --rm -d pomdockercpe/docker-example-1:example
+docker ps
+docker stop my-first-pull
+docker ps -a
+docker run --name my-first-pull --rm -d -p 3000:3000 pomdockercpe/docker-example-1:example
+docker ps
+docker logs my-first-pull
+docker stop my-first-pull
+
+แก้ code จำเป็นต้อง แล้ว run ใหม่
+docker pull pomdockercpe/docker-example-1:example
+docker run --name my-first-pull --rm -d -p 3000:3000 pomdockercpe/docker-example-1:example
+
+
+-- volume ** โหลด Github ได้เลยตรงนี้
+docker volume ls
+docker run --name my-pg -e POSTGRES_PASSWORD=password --rm -d -p 5432:5432 postgres:15.4-alpine
+docker volume ls
+-- open pgadmin 0.0.0.0:5432 user=postgres pass=password db=postgres ลอง add table
+docker stop my-pg
+docker run --name my-pg -e POSTGRES_PASSWORD=password --rm -d -p 5432:5432 postgres:15.4-alpine
+-- table หาย ดาต้าหายหมด
+docker stop my-pg
+docker volume ls
+docker run --name my-pg -e POSTGRES_PASSWORD=password -v pgdata:/var/lib/postgresql/data --rm -d -p 5432:5432 postgres:15.4-alpine
+docker volume ls
+docker stop my-pg
+docker volume ls
+docker run --name my-pg-ex -e POSTGRES_PASSWORD=password -v pgdata:/var/lib/postgresql/data --rm -d -p 5432:5432 postgres:15.4-alpine
+docker volume ls
+-- bind mounts --git ทำให้ path nextjs
+cd nextjs
+docker build -t my-web .
+docker run --name my-web-next-js -p 3000:3000 my-web
+docker stop my-web-next-js
+docker run --name my-web-next-js --rm -d -p 3000:3000 my-web
+docker rm my-web-next-js
+docker run --name my-web-next-js --rm -d -p 3000:3000 my-web
+--ลองแก้โค้ด 
+--ไม่ effect 
+docker stop my-web-next-js
+docker run --name my-web-next-js -v "/Users/pom/Work/docker template/docker-begin/nextjs":/app --rm -d -p 3000:3000 my-web
+--ลอง รัน localhost:3000
+docker ps -a
+docker run --name my-web-next-js -v "/Users/pom/Work/docker template/docker-begin/nextjs":/app -d -p 3000:3000 my-web
+docker logs my-web-next-js
+docker stop my-web-next-js
+docker rm  my-web-next-js
+docker run --name my-web-next-js -v "/Users/pom/Work/docker template/docker-begin/nextjs":/app -v /app/node_modules --rm -d -p 3000:3000 my-web
+--ลองแก้โค้ด
+--ใช้ git cicd ต่อได้เลย
+
+
+ไปต่อที่ how-to-use-dev-ops.txt
+
+
+
+
