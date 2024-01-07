@@ -1,2 +1,5 @@
 docker compose up -d                              -- for production
 docker compose -f docker-compose-dev.yaml up -d   -- for dev
+
+
+docker compose down
